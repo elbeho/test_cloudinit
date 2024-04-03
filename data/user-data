@@ -1,0 +1,29 @@
+#cloud-config
+password: password
+chpasswd:
+    expire: false
+
+disk_setup:
+    /dev/hdb:
+        table_type: gpt
+        layout:
+            - 10
+            - 90
+        overwrite: True
+
+fs_setup:
+    - label: home
+      device: '/dev/hdb'
+      filesystem: 'ext4'
+      partition: 'auto'
+    - label: data
+      device: '/dev/hdb'
+      filesystem: 'ext4'
+      partition: 'auto'
+
+mounts:
+    - [ '/dev/hdb1', '/home2', 'ext4', 'noauto,defaults', '0', '2']
+    - [ '/dev/hdb2', '/data', 'ext4', 'noauto,defaults', '0', '2']
+
+
+
